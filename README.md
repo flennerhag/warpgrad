@@ -4,7 +4,7 @@
 
 ## Meta-Learning with Warped Gradient Descent 
 
-[[Paper]](https://openreview.net/forum?id=rkeiQlBFPB) [[Presentation]](https://slideslive.com/38921885/metalearning-4) [[Slides]](http://flennerhag.com/research/pres_warpgrad_neurips.pdf) 
+[[Paper]](https://openreview.net/forum?id=rkeiQlBFPB) [[Presentation]](https://slideslive.com/38921885/metalearning-4) [[Slides]](http://flennerhag.com/research/pres_warped_gradient_descent_neurips.pdf) 
 
 Original [PyTorch](https://pytorch.org/) implementation of Meta-Learning With Warped Gradient Descent. This repo is built on top
 of the [Leap](https://arxiv.org/abs/1812.01054) source [code](https://github.com/amzn/metalearn-leap) and can be used to 
