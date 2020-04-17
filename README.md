@@ -52,11 +52,11 @@ A mock example could look like this:
 
 ```python
 warp_layer_idx = range(0, num_layers, 2)
-task_layer_idx = range(1, num_layers+1, 2)
+adapt_layer_idx = range(1, num_layers+1, 2)
 layers = [Linear(hidden_size, hidden_size) for _ in range(num_layers)]
 model = Sequential(*layers)
 warp_layers = [layers[i] for i in warp_layer_idx]
-task_layers = [layers[i] for i in task_layer_idx]
+adapt_layers = [layers[i] for i in adapt_layer_idx]
 ```
 
 Next, we need meta-objective for the warp-layers, for instance one of 
@@ -70,7 +70,7 @@ buffer = warpgrad.ReplayBuffer()
 ```
 
 With these objects, we create a `Warp` instance that we can treat as our normal
-model. This model has ``task_parameters`` and ``warp_parameters`` methods that
+model. This model has ``adapt_parameters`` and ``warp_parameters`` methods that
 we can use to initialise separate optimisers.
 
 ```python
@@ -191,3 +191,28 @@ Meta-learners available:
 - ``maml`` (requires the ``src/maml`` package)
 - ``ft`` (multi-headed finetuning)
 - ``no`` (no meta-training)
+
+## Dev. tips
+
+Default configs are for optimal performance. If want to take the code for a spin or 
+get faster iteration cycles, you may want to change some hyper-parameters. 
+Here are a few tips for getting things to run faster (some will affect results 
+more than others, but relative performance should remain intact for all of them): 
+
+- A smaller ``meta_batch_size`` gives you a linear speed up (try 5).
+
+- For faster iterations, reduce ``task_batch_size`` (try 20). It hurts performance, but relative rankings don't change.
+
+- You probably don't need more than 100-300 ``meta_train_steps`` during dev. The rest are for those final percentage points.
+
+- You can control the difficulty of task adaptation (i.e. number of ``task_train_steps`` needed) through data distortions (``src/omniglot/data.py``). Number of adaptation steps is set separately in ``task_val_steps``.
+
+- The more powerful you make warp-layers, the faster they converge (fewer ``meta_train_steps``).
+
+- Not all alphabets are created equal: comparing performance on a single ``seed`` can be misleading. 
+
+- Models overfit; regularisation would probably help (but you'd need to re-run baselines for fair comparison).
+
+- You can change inner-loop and outer-loop optimisers from default ``sgd`` to ``adam`` through the command line, as well as their kwargs.
+
+- You can use this code-base for other datasets as well, all that's needed are new ``dataloader``s and maybe a bigger (or smaller) model. 
