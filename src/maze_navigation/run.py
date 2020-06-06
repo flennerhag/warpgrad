@@ -217,9 +217,9 @@ def main(obs_spec, config):
             with open(prefix+'loss_'+suffix+'.txt', 'w') as thefile:
                 for item in all_total_rewards[::10]:
                     thefile.write("%s\n" % item)
-            #torch.save(net.state_dict(), 'torchmodel_'+suffix+'.dat')
-            #with open(prefix + 'params_'+suffix+'.dat', 'wb') as fo:
-            #     pickle.dump(config, fo)
+            torch.save(net.state_dict(), 'torchmodel_'+suffix+'.dat')
+            with open(prefix + 'params_'+suffix+'.dat', 'wb') as fo:
+                 pickle.dump(config, fo)
 
 
 if __name__ == "__main__":
