@@ -8,7 +8,7 @@
 
 Original [PyTorch](https://pytorch.org/) implementation of Meta-Learning With Warped Gradient Descent. This repo is built on top
 of the [Leap](https://arxiv.org/abs/1812.01054) source [code](https://github.com/amzn/metalearn-leap) and can be used to 
-replicate experiments on Omniglot. 
+replicate experiments on Omniglot and Maze Navigation. 
 
 In Warped Gradient Descent, we interleave *warp-layers* between adaptable
 layers. Warp-layers are shared across tasks and held fixed during adaption, 
@@ -41,7 +41,17 @@ To install all models in this repo:
 bash make_omniglot.sh -p
 ```
 
-## Usage
+## Maze Navigation
+
+The maze-navigation task impements the simplest form of gradient warping;
+we partition the model's parameters into two sets that are learned at
+different time-scales: one set is updated on each episode to facilitate task
+adaptation and one is updated across episodes to facilitate meta-learning.
+See [experiment directory](github.com/flennerhag/warpgrad/src/maze_navigation)
+for further details.
+
+
+## General API usage
 
 The API is meant to be domain agnostic in order for you to do what you
 want to do. However, it is not meant to be a final package but a starting point
