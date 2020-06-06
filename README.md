@@ -47,7 +47,7 @@ The maze-navigation task impements the simplest form of gradient warping;
 we partition the model's parameters into two sets that are learned at
 different time-scales: one set is updated on each episode to facilitate task
 adaptation and one is updated across episodes to facilitate meta-learning.
-See [experiment directory](github.com/flennerhag/warpgrad/src/maze_navigation)
+See [experiment directory](https://github.com/flennerhag/warpgrad/tree/master/src/maze_navigation)
 for further details.
 
 
